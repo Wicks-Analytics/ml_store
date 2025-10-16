@@ -7,6 +7,10 @@ from pathlib import Path
 import tempfile
 import json
 
+# Set matplotlib to use non-interactive backend for tests
+import matplotlib
+matplotlib.use('Agg')
+
 
 @pytest.fixture
 def sample_classification_data():
