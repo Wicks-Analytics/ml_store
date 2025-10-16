@@ -9,7 +9,8 @@ import json
 
 # Set matplotlib to use non-interactive backend for tests
 import matplotlib
-matplotlib.use('Agg')
+
+matplotlib.use("Agg")
 
 
 @pytest.fixture
@@ -17,16 +18,18 @@ def sample_classification_data():
     """Create sample classification dataset."""
     np.random.seed(42)
     n_samples = 1000
-    
-    df = pl.DataFrame({
-        'feature1': np.random.randn(n_samples),
-        'feature2': np.random.randn(n_samples),
-        'feature3': np.random.randn(n_samples),
-        'cat_feature1': np.random.choice(['A', 'B', 'C'], n_samples),
-        'cat_feature2': np.random.choice(['X', 'Y'], n_samples),
-        'target': np.random.choice([0, 1], n_samples)
-    })
-    
+
+    df = pl.DataFrame(
+        {
+            "feature1": np.random.randn(n_samples),
+            "feature2": np.random.randn(n_samples),
+            "feature3": np.random.randn(n_samples),
+            "cat_feature1": np.random.choice(["A", "B", "C"], n_samples),
+            "cat_feature2": np.random.choice(["X", "Y"], n_samples),
+            "target": np.random.choice([0, 1], n_samples),
+        }
+    )
+
     return df
 
 
@@ -35,22 +38,24 @@ def sample_regression_data():
     """Create sample regression dataset."""
     np.random.seed(42)
     n_samples = 1000
-    
+
     X1 = np.random.randn(n_samples)
     X2 = np.random.randn(n_samples)
     X3 = np.random.randn(n_samples)
-    
+
     # Create target with some relationship to features
     y = 2 * X1 + 3 * X2 - 1.5 * X3 + np.random.randn(n_samples) * 0.5
-    
-    df = pl.DataFrame({
-        'feature1': X1,
-        'feature2': X2,
-        'feature3': X3,
-        'cat_feature': np.random.choice(['A', 'B', 'C'], n_samples),
-        'target': y
-    })
-    
+
+    df = pl.DataFrame(
+        {
+            "feature1": X1,
+            "feature2": X2,
+            "feature3": X3,
+            "cat_feature": np.random.choice(["A", "B", "C"], n_samples),
+            "target": y,
+        }
+    )
+
     return df
 
 
@@ -67,13 +72,8 @@ def classifier_config():
         "random_seed": 42,
         "plotting_backend": "matplotlib",
         "model_params": {
-            "learning_params": {
-                "iterations": 100,
-                "learning_rate": 0.1,
-                "depth": 4,
-                "verbose": 0
-            }
-        }
+            "learning_params": {"iterations": 100, "learning_rate": 0.1, "depth": 4, "verbose": 0}
+        },
     }
 
 
@@ -90,13 +90,8 @@ def regressor_config():
         "random_seed": 42,
         "plotting_backend": "matplotlib",
         "model_params": {
-            "learning_params": {
-                "iterations": 100,
-                "learning_rate": 0.05,
-                "depth": 3,
-                "verbose": 0
-            }
-        }
+            "learning_params": {"iterations": 100, "learning_rate": 0.05, "depth": 3, "verbose": 0}
+        },
     }
 
 
@@ -110,13 +105,13 @@ def temp_config_file(tmp_path):
         "categorical_features": [],
         "train_ratio": 0.7,
         "test_ratio": 0.3,
-        "random_seed": 42
+        "random_seed": 42,
     }
-    
+
     config_path = tmp_path / "test_config.json"
-    with open(config_path, 'w') as f:
+    with open(config_path, "w") as f:
         json.dump(config, f)
-    
+
     return config_path
 
 
@@ -140,26 +135,23 @@ def temp_parquet_file(tmp_path, sample_classification_data):
 def trained_classifier(sample_classification_data, classifier_config):
     """Create a trained classifier model."""
     from ml_store import create_modelling_data, train_model
-    
+
     X_train, y_train, X_test, y_test, feature_names, cat_indices, _, _ = create_modelling_data(
         sample_classification_data, classifier_config
     )
-    
+
     model = train_model(
-        X_train, y_train,
-        config=classifier_config,
-        categorical_features=cat_indices,
-        verbose=0
+        X_train, y_train, config=classifier_config, categorical_features=cat_indices, verbose=0
     )
-    
+
     return {
-        'model': model,
-        'X_train': X_train,
-        'y_train': y_train,
-        'X_test': X_test,
-        'y_test': y_test,
-        'feature_names': feature_names,
-        'cat_indices': cat_indices
+        "model": model,
+        "X_train": X_train,
+        "y_train": y_train,
+        "X_test": X_test,
+        "y_test": y_test,
+        "feature_names": feature_names,
+        "cat_indices": cat_indices,
     }
 
 
@@ -167,24 +159,21 @@ def trained_classifier(sample_classification_data, classifier_config):
 def trained_regressor(sample_regression_data, regressor_config):
     """Create a trained regressor model."""
     from ml_store import create_modelling_data, train_model
-    
+
     X_train, y_train, X_test, y_test, feature_names, cat_indices, _, _ = create_modelling_data(
         sample_regression_data, regressor_config
     )
-    
+
     model = train_model(
-        X_train, y_train,
-        config=regressor_config,
-        categorical_features=cat_indices,
-        verbose=0
+        X_train, y_train, config=regressor_config, categorical_features=cat_indices, verbose=0
     )
-    
+
     return {
-        'model': model,
-        'X_train': X_train,
-        'y_train': y_train,
-        'X_test': X_test,
-        'y_test': y_test,
-        'feature_names': feature_names,
-        'cat_indices': cat_indices
+        "model": model,
+        "X_train": X_train,
+        "y_train": y_train,
+        "X_test": X_test,
+        "y_test": y_test,
+        "feature_names": feature_names,
+        "cat_indices": cat_indices,
     }

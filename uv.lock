@@ -1517,6 +1517,7 @@ sql = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "black" },
     { name = "ipykernel" },
     { name = "pytest" },
     { name = "pytest-cov" },
@@ -1546,6 +1547,7 @@ provides-extras = ["sql", "dev", "all"]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "black", specifier = ">=25.9.0" },
     { name = "ipykernel", specifier = ">=7.0.0" },
     { name = "pytest", specifier = ">=8.0.0" },
     { name = "pytest-cov", specifier = ">=4.0.0" },
