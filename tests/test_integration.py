@@ -1,20 +1,21 @@
 """Integration tests for ml_store."""
 
-import pytest
-import polars as pl
-import numpy as np
 import json
-from pathlib import Path
+
 import matplotlib.pyplot as plt
+import numpy as np
+import polars as pl
+import pytest
+
 from ml_store import (
+    create_modelling_data,
+    evaluate_model,
     load_config,
     load_data,
-    create_modelling_data,
-    train_model,
-    evaluate_model,
+    load_model,
     predict,
     save_model,
-    load_model,
+    train_model,
 )
 
 
@@ -236,8 +237,9 @@ class TestEvaluationWorkflow:
 
     def test_full_evaluation_report(self, sample_classification_data, classifier_config, tmp_path):
         """Test generating full evaluation report."""
-        from ml_store import ml_evaluation
         from catboost import Pool
+
+        from ml_store import ml_evaluation
 
         # Prepare and train
         X_train, y_train, X_test, y_test, feature_names, cat_indices, _, _ = create_modelling_data(

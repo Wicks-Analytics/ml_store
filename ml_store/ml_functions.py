@@ -8,8 +8,8 @@ import mlflow
 import mlflow.catboost
 import numpy as np
 import polars as pl
-from catboost import CatBoostClassifier, CatBoostRegressor, Pool
 from analytics_store import model_validation
+from catboost import CatBoostClassifier, CatBoostRegressor, Pool
 
 
 def load_config(config_path: Union[str, Path]) -> Dict[str, Any]:
@@ -172,7 +172,7 @@ def load_data(config: Dict[str, Any]) -> pl.DataFrame:
                 # Parse connection string or use connection dict
                 if isinstance(connection_string, str):
                     # Parse snowflake://user:pass@account/database/schema?warehouse=wh
-                    from urllib.parse import urlparse, parse_qs
+                    from urllib.parse import parse_qs, urlparse
 
                     parsed = urlparse(connection_string)
 

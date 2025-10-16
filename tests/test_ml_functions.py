@@ -1,18 +1,19 @@
 """Tests for ml_functions module."""
 
-import pytest
-import polars as pl
-import numpy as np
 import json
-from pathlib import Path
+
+import numpy as np
+import polars as pl
+import pytest
+
 from ml_store import (
-    load_config,
-    load_data,
-    prepare_features,
     assign_split,
     create_modelling_data,
-    train_model,
+    load_config,
+    load_data,
     predict,
+    prepare_features,
+    train_model,
 )
 
 

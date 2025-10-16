@@ -1,14 +1,12 @@
 """Pytest configuration and fixtures for ml_store tests."""
 
-import pytest
-import polars as pl
-import numpy as np
-from pathlib import Path
-import tempfile
 import json
 
 # Set matplotlib to use non-interactive backend for tests
 import matplotlib
+import numpy as np
+import polars as pl
+import pytest
 
 matplotlib.use("Agg")
 

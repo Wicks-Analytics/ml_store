@@ -6,17 +6,17 @@ This module provides functions for:
 - Partial dependence plots
 """
 
-from typing import List, Optional, Tuple, Union, Literal, Dict, Any
-from pathlib import Path
-import numpy as np
-import polars as pl
-import matplotlib.pyplot as plt
-import seaborn as sns
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-from catboost import CatBoostClassifier, CatBoostRegressor, Pool
-import shap
 from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Literal, Optional, Tuple, Union
+
+import matplotlib.pyplot as plt
+import numpy as np
+import plotly.graph_objects as go
+import polars as pl
+import shap
+from catboost import CatBoostClassifier, CatBoostRegressor, Pool
+from plotly.subplots import make_subplots
 
 
 def _get_feature_names_from_config(
@@ -1091,24 +1091,24 @@ Note: The "plotting_backend" field in config can be "matplotlib" or "plotly".
 1. Basic usage with config file:
     ```python
     from ml_store import ml_functions, ml_evaluation
-    
+
     # Load config
     config = ml_functions.load_config('config.json')
-    
+
     # Load model
     model = ml_functions.load_model('model.cbm', model_type=config['model_type'])
-    
+
     # Prepare test data
     X_test, y_test, feature_names, cat_indices, _, _ = ml_functions.create_modelling_data(
         test_df, config, train_ratio=0.0, test_ratio=1.0
     )
-    
+
     # Create pool from config
     test_pool = ml_evaluation.create_pool_from_config(X_test, y_test, config)
-    
+
     # Get feature importance using config
     importance = ml_evaluation.get_feature_importance(
-        model, 
+        model,
         config=config,
         pool=test_pool
     )
@@ -1119,16 +1119,16 @@ Note: The "plotting_backend" field in config can be "matplotlib" or "plotly".
     ```python
     # Calculate SHAP values using config
     shap_result = ml_evaluation.calculate_shap_values(
-        model, 
+        model,
         X_test,
         config=config,
         pool=test_pool
     )
-    
+
     # Plot SHAP summary
     fig = ml_evaluation.plot_shap_summary(shap_result, plot_type='dot')
     plt.show()
-    
+
     # Plot SHAP dependence for a specific feature
     fig = ml_evaluation.plot_shap_dependence(shap_result, 'age')
     plt.show()
@@ -1147,11 +1147,11 @@ Note: The "plotting_backend" field in config can be "matplotlib" or "plotly".
         output_dir='./evaluation_output',
         top_n_features=15
     )
-    
+
     # Access results
     print(report['feature_importance_df'])
     print(report['shap_df'])
-    
+
     # Display figures (plotly figures have .show() method)
     report['fig_feature_importance'].show()
     report['fig_shap_summary'].show()
@@ -1161,18 +1161,18 @@ Note: The "plotting_backend" field in config can be "matplotlib" or "plotly".
     ```python
     # Config contains "plotting_backend": "plotly"
     # All plotting functions will automatically use plotly
-    
+
     importance = ml_evaluation.get_feature_importance(
-        model, 
+        model,
         config=config,  # Backend read from config
         pool=test_pool
     )
     fig = ml_evaluation.plot_feature_importance(importance, config=config)
     fig.show()  # Interactive plotly plot
-    
+
     # Override config backend with explicit parameter
     fig_matplotlib = ml_evaluation.plot_feature_importance(
-        importance, 
+        importance,
         backend='matplotlib',  # Explicit override
         config=config
     )
@@ -1183,13 +1183,13 @@ Note: The "plotting_backend" field in config can be "matplotlib" or "plotly".
     ```python
     # Explicit feature names
     feature_names = ['age', 'income', 'credit_score']
-    
+
     importance = ml_evaluation.get_feature_importance(
         model,
         feature_names=feature_names,
         pool=test_pool
     )
-    
+
     shap_result = ml_evaluation.calculate_shap_values(
         model,
         X_test,
@@ -1202,7 +1202,7 @@ Note: The "plotting_backend" field in config can be "matplotlib" or "plotly".
     ```python
     # Get feature names from config
     feature_names = config.get('feature_columns', [])
-    
+
     # Calculate PD for specific feature
     pd_result = ml_evaluation.calculate_partial_dependence(
         model,
@@ -1210,7 +1210,7 @@ Note: The "plotting_backend" field in config can be "matplotlib" or "plotly".
         feature_index=0,
         feature_name=feature_names[0]
     )
-    
+
     # Plot
     fig = ml_evaluation.plot_partial_dependence(pd_result)
     plt.show()

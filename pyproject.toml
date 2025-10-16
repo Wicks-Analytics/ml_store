@@ -69,6 +69,7 @@ dev = [
     "ipykernel>=7.0.0",
     "pytest>=8.0.0",
     "pytest-cov>=4.0.0",
+    "ruff>=0.14.0",
 ]
 
 [tool.uv.sources]
@@ -102,5 +103,11 @@ exclude = '''
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+
+[tool.ruff.lint]
 select = ["E", "F", "I", "N", "W"]
-ignore = ["E501"]
+ignore = [
+    "E501",  # Line too long (handled by black)
+    "N803",  # Argument name should be lowercase (ML convention: X, y, X_train, etc.)
+    "N806",  # Variable in function should be lowercase (ML convention: X, y, X_train, etc.)
+]

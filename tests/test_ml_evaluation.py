@@ -1,9 +1,10 @@
 """Tests for ml_evaluation module."""
 
-import pytest
-import polars as pl
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+import polars as pl
+import pytest
+
 from ml_store import ml_evaluation
 
 
@@ -170,7 +171,6 @@ class TestPoolCreation:
         X_cat2 = np.random.choice(["X", "Y"], 100)
 
         # Combine into DataFrame then convert to array for Pool
-        import polars as pl
 
         df = pl.DataFrame(
             {
