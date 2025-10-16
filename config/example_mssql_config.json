@@ -1,0 +1,37 @@
+{
+  "model_type": "regressor",
+  "target_column": "sales_amount",
+  "data_path": "SELECT product_id, price, quantity, discount, sales_amount FROM sales WHERE date >= '2024-01-01'",
+  "data_type": "sql",
+  "db_type": "mssql",
+  "db_connection": "mssql://username:password@server_name/database_name",
+  "data_options": {
+    "driver": "{ODBC Driver 17 for SQL Server}",
+    "trusted_connection": "no"
+  },
+  "plotting_backend": "plotly",
+  "feature_columns": [
+    "price",
+    "quantity",
+    "discount"
+  ],
+  "categorical_features": [],
+  "train_ratio": 0.8,
+  "test_ratio": 0.2,
+  "random_seed": 42,
+  "model_params": {
+    "learning_params": {
+      "iterations": 1500,
+      "learning_rate": 0.05,
+      "depth": 4,
+      "loss_function": "RMSE",
+      "eval_metric": "MAE",
+      "verbose": 100
+    },
+    "early_stopping_rounds": 50
+  },
+  "mlflow": {
+    "experiment_name": "sales_prediction_mssql",
+    "run_name": "catboost_regressor_v1"
+  }
+}

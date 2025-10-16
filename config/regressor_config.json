@@ -1,0 +1,33 @@
+{
+  "model_type": "regressor",
+  "target_column": "Insurance_Premium",
+  "plotting_backend": "plotly",
+  "feature_columns": [
+    "Driver_Age",
+    "Driver_Experience",
+    "Previous_Accidents",
+    "Annual_Mileage",
+    "Car_Manufacturing_Year",
+    "Car_Age"
+  ],  
+  "categorical_features": [
+  ],
+  "train_ratio": 0.8,
+  "test_ratio": 0.2,
+  "random_seed": 42,
+  "model_params": {
+    "learning_params": {
+      "iterations": 1500,
+      "learning_rate": 0.05,
+      "depth": 2,
+      "loss_function": "RMSEWithUncertainty",
+      "eval_metric": "MAE",
+      "verbose": 0
+    },
+    "early_stopping_rounds": 10
+  },
+  "mlflow": {
+    "experiment_name": "car_insurance_premium_experiment",
+    "run_name": "catboost_regressor_v1"
+  }
+}

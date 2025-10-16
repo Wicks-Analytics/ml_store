@@ -1,0 +1,38 @@
+{
+  "model_type": "classifier",
+  "target_column": "churn",
+  "data_path": "SELECT customer_id, age, tenure, monthly_charges, total_charges, churn FROM customers WHERE year = 2024",
+  "data_type": "sql",
+  "db_type": "snowflake",
+  "db_connection": "snowflake://username:password@account_identifier/database/schema?warehouse=compute_wh&role=analyst_role",
+  "data_options": {
+    "warehouse": "COMPUTE_WH",
+    "role": "ANALYST_ROLE"
+  },
+  "plotting_backend": "plotly",
+  "feature_columns": [
+    "age",
+    "tenure",
+    "monthly_charges",
+    "total_charges"
+  ],
+  "categorical_features": [],
+  "train_ratio": 0.7,
+  "test_ratio": 0.3,
+  "random_seed": 42,
+  "model_params": {
+    "learning_params": {
+      "iterations": 1000,
+      "learning_rate": 0.1,
+      "depth": 6,
+      "loss_function": "Logloss",
+      "eval_metric": "AUC",
+      "verbose": 100
+    },
+    "early_stopping_rounds": 50
+  },
+  "mlflow": {
+    "experiment_name": "churn_prediction_snowflake",
+    "run_name": "catboost_classifier_v1"
+  }
+}

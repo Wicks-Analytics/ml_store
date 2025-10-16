@@ -1,0 +1,22 @@
+[project]
+name = "ml_store"
+version = "0.1.0"
+description = "Machine learning module with MLFlow, CatBoost, and Polars integration"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mlflow>=2.18.0",
+    "catboost>=1.2.7",
+    "polars>=1.13.0",
+    "scikit-learn>=1.5.2",
+    "numpy>=2.1.3",
+    "analytics-store",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.0.0",
+]
+
+[tool.uv.sources]
+analytics-store = { git = "https://github.com/Wicks-Analytics/analytics_store" }
