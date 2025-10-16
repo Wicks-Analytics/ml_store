@@ -1,0 +1,14 @@
+include README.md
+include LICENSE
+include pyproject.toml
+include pytest.ini
+
+recursive-include ml_store *.py
+recursive-include config *.json
+recursive-include docs *.md
+
+recursive-exclude tests *
+recursive-exclude examples *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * .DS_Store

@@ -1,5 +1,7 @@
 """ML Store - Machine Learning utilities with MLFlow, CatBoost, and Polars."""
 
+__version__ = "0.1.0"
+
 from .ml_functions import (
     load_config,
     load_data,
